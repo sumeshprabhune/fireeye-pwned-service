@@ -1,0 +1,26 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Length: 611
+Content-Type: application/json;charset=UTF-8
+
+{
+  "comments" : "Pwned Service successfully responded with the following breaches",
+  "breaches" : [ {
+    "Name" : "Adobe",
+    "Title" : "Adobe",
+    "Domain" : "adobe.com",
+    "BreachDate" : "2013-10-04",
+    "AddedDate" : "2013-12-04T00:00:00Z",
+    "ModifiedDate" : "2013-12-04T00:00:00Z",
+    "PwnCount" : 14422,
+    "Description" : "Adobe breach description",
+    "DataClasses" : [ "Email addresses", "Password hints", "Passwords", "Usernames" ],
+    "IsVerified" : true,
+    "IsFabricated" : false,
+    "IsSensitive" : false,
+    "IsRetired" : false,
+    "IsSpamList" : false
+  } ]
+}
+----

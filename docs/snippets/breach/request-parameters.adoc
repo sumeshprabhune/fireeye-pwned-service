@@ -1,0 +1,16 @@
+|===
+|Parameter|Description
+
+|`+account+`
+|AccountId to search breaches on. It is a required parameter
+
+|`+domain+`
+|Filter the account's breaches for the provided domain. By default all domains are provided
+
+|`+truncateResponse+`
+|Truncate the breach response to include on breach name. By default response is not truncated
+
+|`+includeUnverified+`
+|Include unverified breaches. By default unverified breaches are not included
+
+|===

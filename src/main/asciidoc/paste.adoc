@@ -1,0 +1,23 @@
+= Fireeye Pwned Paste Account Service Documentation
+
+This is the documentation of the service running at http://localhost:8080/pwned
+The documentation is heavily derived from the original Pwned website https://haveibeenpwned.com
+
+== Getting all pastes for an account
+
+The API takes a single parameter which is the email address to be searched for. Unlike searching for breaches, usernames that are not email addresses cannot be searched for. The email is not case sensitive and will be trimmed of leading or trailing white spaces. The email should always be URL encoded.
+
+.Sample Request
+
+include::{snippets}/paste/http-request.adoc[]
+
+== Paste Response Model
+
+include::{snippets}/paste/response-fields.adoc[]
+
+== Paste Sample Response
+
+include::{snippets}/paste/http-response.adoc[]
+
+
+

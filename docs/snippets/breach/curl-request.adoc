@@ -1,0 +1,4 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/breach/getAll?account=test%40example.com&domain=Adobe.com&truncateResponse=false&includeUnverified=true' -i -X GET
+----

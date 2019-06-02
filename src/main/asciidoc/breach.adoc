@@ -1,0 +1,52 @@
+= Fireeye Pwned Breach Service Documentation
+
+This is the documentation of the service running at http://localhost:8080/pwned
+It retrieves breaches by varying combinations.
+The documentation is heavily derived from the original Pwned website https://haveibeenpwned.com
+
+== Getting all breaches for an account
+
+The most common use of the API is to return a list of all breaches a particular account has been involved in. The API takes a single parameter which is the account to be searched for. The account is not case sensitive and will be trimmed of leading or trailing white spaces. The account should always be URL encoded.
+
+.Sample Request
+include::{snippets}/account-breach/http-request.adoc[]
+
+Following are option request parameters that endpoint allows to modify the response
+
+.Request Parameters
+include::{snippets}/account-breach/request-parameters.adoc[]
+
+== Getting all breach sites in Pwned
+
+A "breach" is an instance of a system having been compromised by an attacker and the data disclosed. For example, Adobe was a breach, Gawker was a breach etc. It is possible to return the details of each of breach in the system which currently stands at 365 breaches.
+
+.Sample Request
+include::{snippets}/all-breach/http-request.adoc[]
+
+== Getting a single breached site
+
+Sometimes just a single breach is required and this can be retrieved by the breach "name". This is the stable value which may or may not be the same as the breach "title" (which can change). See the breach model below for more info.
+
+.Sample Request
+include::{snippets}/name-breach/http-request.adoc[]
+
+== Breach Response Model
+
+include::{snippets}/account-breach/response-fields.adoc[]
+
+== Sample Breach Response
+
+include::{snippets}/account-breach/http-response.adoc[]
+
+
+== Getting all data classes in the system
+
+A "data class" is an attribute of a record compromised in a breach. For example, many breaches expose data classes such as "Email addresses" and "Passwords". The values returned by this service are ordered alphabetically in a string array and will expand over time as new breaches expose previously unseen classes of data.
+
+.Request
+include::{snippets}/breach-dataclasses/http-request.adoc[]
+
+.Response
+include::{snippets}/breach-dataclasses/http-response.adoc[]
+
+
