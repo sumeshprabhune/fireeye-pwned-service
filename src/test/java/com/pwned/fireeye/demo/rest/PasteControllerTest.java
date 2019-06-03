@@ -62,10 +62,10 @@ public class PasteControllerTest {
         pasteEntity2.setEmailCount(2363);
         pasteEntityResponse.setPasteEntities(Arrays.asList(new PasteEntity[]{pasteEntity1, pasteEntity2}));
 
-        String account = "test@example.com";
+        String account = "{account}";
         Mockito.when(pasteService.getPasteAccounts(account)).thenReturn(pasteEntityResponse);
 
-        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/pastes/{account}", account))
+        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/pwned/pastes/{account}", account))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString(comments)))
                 .andDo(document("paste",

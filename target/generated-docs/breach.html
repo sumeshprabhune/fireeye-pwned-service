@@ -422,6 +422,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h1>Fireeye Pwned Service Documentation</h1>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Welcome to FireEye Pwned Service documentation.
+Please read through to understand the various endpoints supported.</p>
+</div>
+</div>
+</div>
 <h1 id="_breach_service" class="sect0">Breach Service</h1>
 <div class="paragraph">
 <p>This is the documentation of the service running at <a href="http://localhost:8080/pwned" class="bare">http://localhost:8080/pwned</a>
@@ -437,7 +445,7 @@ The documentation is heavily derived from the original Pwned website <a href="ht
 <div class="listingblock">
 <div class="title">Sample Request</div>
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /breach/byAccount/test@example.com?domain=Adobe.com&amp;truncateResponse=false&amp;includeUnverified=true HTTP/1.1
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /pwned/breach/byAccount/%7Baccount%7D?domain=Adobe.com&amp;truncateResponse=false&amp;includeUnverified=true HTTP/1.1
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -445,7 +453,7 @@ Host: localhost:8080</code></pre>
 <p>Following are option request parameters that endpoint allows to modify the response</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 1. /breach/byAccount/{account}</caption>
+<caption class="title">Table 1. /pwned/breach/byAccount/{account}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -501,7 +509,7 @@ Host: localhost:8080</code></pre>
 <div class="listingblock">
 <div class="title">Sample Request</div>
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /breach/getAll?domain=Adobe.com HTTP/1.1
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /pwned/breach/getAll?domain=Adobe.com HTTP/1.1
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -516,12 +524,12 @@ Host: localhost:8080</code></pre>
 <div class="listingblock">
 <div class="title">Sample Request</div>
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /breach/byName/Adobe HTTP/1.1
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /pwned/breach/byName/%7Bname%7D HTTP/1.1
 Host: localhost:8080</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 3. /breach/byName/{name}</caption>
+<caption class="title">Table 3. /pwned/breach/byName/{name}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -649,7 +657,6 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Length: 611
-Content-Disposition: inline;filename=f.txt
 Content-Type: application/json;charset=UTF-8
 
 {
@@ -684,7 +691,7 @@ Content-Type: application/json;charset=UTF-8
 <div class="listingblock">
 <div class="title">Request</div>
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /breach/dataClasses HTTP/1.1
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /pwned/breach/dataClasses HTTP/1.1
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -714,7 +721,7 @@ The documentation is heavily derived from the original Pwned website <a href="ht
 <div class="listingblock">
 <div class="title">Sample Request</div>
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /pastes/test@example.com HTTP/1.1
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /pwned/pastes/%7Baccount%7D HTTP/1.1
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -722,7 +729,7 @@ Host: localhost:8080</code></pre>
 <ol class="arabic">
 <li>
 <p>Request Path Parameters
-./pastes/{account}</p>
+./pwned/pastes/{account}</p>
 </li>
 </ol>
 </div>
@@ -803,7 +810,6 @@ Host: localhost:8080</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Content-Disposition: inline;filename=f.txt
 Content-Type: application/json;charset=UTF-8
 Content-Length: 486
 
@@ -847,7 +853,7 @@ Each password is stored as a SHA-1 hash of a UTF-8 encoded password. The downloa
 <div class="listingblock">
 <div class="title">Sample Request</div>
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /password/ABCDE HTTP/1.1
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /pwned/password/%7Bfirst%205%20SHA1%20characters%7D HTTP/1.1
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -858,9 +864,25 @@ Host: localhost:8080</code></pre>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>Unresolved directive in breach.adoc - include::C:\SourceCode\fireeye-pwned-service\target/snippets/password/path-parameters.adoc[]</p>
-</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 4. /pwned/password/{characters}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>characters</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">First five SHA1 characters</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="sect1">
@@ -889,7 +911,7 @@ Content-Type: text/plain;charset=UTF-8
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-06-02 08:07:33 CDT
+Last updated 2019-06-02 09:21:44 CDT
 </div>
 </div>
 </body>

@@ -18,9 +18,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
@@ -64,8 +66,7 @@ public class BreachControllerTest {
         breach.setIsFabricated(false);
         breachResponse.setBreaches(Arrays.asList(new Breach[]{breach}));
         Mockito.when(breachService.getAllBreaches(Mockito.any())).thenReturn(breachResponse);
-
-        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/breach/byAccount/{account}", "test@example.com")
+        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/pwned/breach/byAccount/{account}", "{account}")
                 .param("domain", "Adobe.com").param("truncateResponse", "false").param("includeUnverified", "true"))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString(comments)))
@@ -105,7 +106,7 @@ public class BreachControllerTest {
         breachResponse.setBreaches(Arrays.asList(new Breach[]{breach}));
         Mockito.when(breachService.getAllBreaches(Mockito.any())).thenReturn(breachResponse);
 
-        this.mockMvc.perform(get("/breach/getAll")
+        this.mockMvc.perform(get("/pwned/breach/getAll")
                 .param("domain", "Adobe.com"))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString(comments)))
@@ -141,7 +142,7 @@ public class BreachControllerTest {
         breachResponse.setBreaches(Arrays.asList(new Breach[]{breach}));
         Mockito.when(breachService.getBreach(Mockito.any())).thenReturn(breachResponse);
 
-        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/breach/byName/{name}", "Adobe"))
+        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/pwned/breach/byName/{name}", "{name}"))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString(comments)))
                 .andDo(document("name-breach",
@@ -155,7 +156,7 @@ public class BreachControllerTest {
     public void shouldReturnBreachDataClasses() throws Exception {
         Mockito.when(breachService.getBreachDataClasses()).thenReturn(Arrays.asList(new String[]{"Email addresses", "Password hints", "Passwords", "Usernames"}));
 
-        this.mockMvc.perform(get("/breach/dataClasses"))
+        this.mockMvc.perform(get("/pwned/breach/dataClasses"))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString("Email addresses")))
                 .andDo(document("breach-dataclasses"));

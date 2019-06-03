@@ -13,7 +13,7 @@ public class HttpResponseUtils {
     public static String convertExceptionToResponseString(HttpClientErrorException ex) {
         String comments;
         if (ex.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
-            comments = "No breaches found for the request";
+            comments = "No results found for the request";
         } else if (ex.getStatusCode().equals(HttpStatus.TOO_MANY_REQUESTS)) {
             if(!StringUtils.isEmpty(ex.getResponseBodyAsString())) {
                 comments = ex.getResponseBodyAsString();

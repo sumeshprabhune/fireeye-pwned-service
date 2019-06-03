@@ -15,6 +15,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -37,12 +39,14 @@ public class PasswordControllerTest {
                "012A93CD6E5EE704FB1D2E3B238ED2D4A37:146\n" +
                "0159F8823B2BA480158D8F5656493741546:2\n" +
                "028DA52CF202EA546E9A7669C7614D64DCD:3";
-        Mockito.when(passwordService.getPwnedPasswords("ABCDE")).thenReturn(response);
+        Mockito.when(passwordService.getPwnedPasswords("{first 5 SHA1 characters}")).thenReturn(response);
 
-        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/password/{characters}", "ABCDE"))
+        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/pwned/password/{characters}", "{first 5 SHA1 characters}"))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString(response)))
-                .andDo(document("password"));
+                .andDo(document("password",
+                        pathParameters(
+                                parameterWithName("characters").description("First five SHA1 characters"))));
 
     }
 }
