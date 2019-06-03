@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3">
-<title>Fireeye Pwned Paste Account Service Documentation</title>
+<title>Untitled</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -419,117 +419,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Fireeye Pwned Paste Account Service Documentation</h1>
 </div>
 <div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>This is the documentation of the service running at <a href="http://localhost:8080/pwned" class="bare">http://localhost:8080/pwned</a>
-The documentation is heavily derived from the original Pwned website <a href="https://haveibeenpwned.com" class="bare">https://haveibeenpwned.com</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_getting_all_pastes_for_an_account">Getting all pastes for an account</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The API takes a single parameter which is the email address to be searched for. Unlike searching for breaches, usernames that are not email addresses cannot be searched for. The email is not case sensitive and will be trimmed of leading or trailing white spaces. The email should always be URL encoded.</p>
-</div>
-<div class="listingblock">
-<div class="title">Sample Request</div>
-<div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /pastes/test@example.com HTTP/1.1
-Host: localhost:8080</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_paste_response_model">Paste Response Model</h2>
-<div class="sectionbody">
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33%;">
-<col style="width: 33%;">
-<col style="width: 33%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Path</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>comments</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Comments for the returned response; important especially to show problems</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pasteEntities[].Source</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The paste service the record was retrieved from. Current values are: Pastebin, Pastie, Slexy, Ghostbin, QuickLeak, JustPaste, AdHocUrl, PermanentOptOut, OptOut</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pasteEntities[].Id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The ID of the paste as it was given at the source service. Combined with the "Source" attribute, this can be used to resolve the URL of the paste.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pasteEntities[].Title</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The title of the paste as observed on the source site. This may be null and if so will be omitted from the response.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pasteEntities[].Date</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The date and time (precision to the second) that the paste was posted. This is taken directly from the paste site when this information is available but may be null if no date is published.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pasteEntities[].EmailCount</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The number of emails that were found when processing the paste. Emails are extracted by using the regular expression \b+(?!^.{256})<span class="a-zA-Z0-9\.\-_\+">@[a-zA-Z0-9\.\-_]</span>\.[a-zA-Z]+\b</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_paste_sample_response">Paste Sample Response</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Content-Disposition: inline;filename=f.txt
-Content-Type: application/json;charset=UTF-8
-Content-Length: 486
 
-{
-  "comments" : "Pwned Service successfully responded with the following pastes",
-  "pasteEntities" : [ {
-    "Source" : "Pastebin",
-    "Id" : "01ywCrGV",
-    "Title" : "AnonLeague hack leak email stratfor.com in July-17-2013",
-    "Date" : "2013-07-18T04:07:00Z",
-    "EmailCount" : 57
-  }, {
-    "Source" : "QuickLeak",
-    "Id" : "QtPly6aE",
-    "Title" : "Cyber Resistance Hacked blogs.perl.org",
-    "Date" : "2014-01-22T00:00:00Z",
-    "EmailCount" : 2363
-  } ]
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-06-02 04:18:31 CDT
+Last updated 2019-06-02 06:58:22 CDT
 </div>
 </div>
 </body>
